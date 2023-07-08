@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class FishFeelingManager : MonoBehaviour
 {
+    public static FishFeelingManager Instance;
     public float Feeling; //好感度
     public float Coefficient; //系数
     public float Base; // 基础值
@@ -13,6 +15,19 @@ public class FishFeelingManager : MonoBehaviour
     public void ChangeFeeling()
     {
         Feeling += Coefficient * Base;
+    }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Update()

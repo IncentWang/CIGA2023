@@ -14,7 +14,7 @@ public class TouchObject : MonoBehaviour
 
     void Start()
     {
-        _mesh = GetComponent<MeshFilter>().mesh;
+        _mesh = GetComponent<SkinnedMeshRenderer>().sharedMesh;
         _triangles = _mesh.GetTriangles(0);
 
         // Prepare all triangles on vertices data.
