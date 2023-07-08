@@ -5,45 +5,32 @@ using UnityEngine;
 public class RoadMoveBase : MonoBehaviour
 {
     private float speed;
-    private float positionZ;
-
-    public Transform endPoint;
-
-    public Transform createPoint;
-
     private WallMove wallMove;
 
-    private bool isBuilt;
+    Renderer renderer;
     // Start is called before the first frame update
     void Start()
     {
+        renderer = GetComponent<Renderer>();
         wallMove = FindObjectOfType<WallMove>();
         speed = 20f;
-        createPoint = GameObject.FindGameObjectWithTag("RoadCreatePoint").transform;
-    }
-    private void OnEnable()
-    {
-        isBuilt = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime), Space.World);
-        //产生新的road
-        if(endPoint.position.z > -30 && endPoint.position.z <= 120  && !isBuilt)
-        {
-            RoadMoveBase roadMoveBase = wallMove.queueRoadMoveBase.Dequeue();
-            wallMove.queueRoadMoveBase.Enqueue(this);
-            roadMoveBase.gameObject.SetActive(true);
-            roadMoveBase.transform.position = createPoint.position;
-            isBuilt = true; 
-        }
-        //自我销毁
-        if(endPoint.position.z <= -30)
-        {
-            gameObject.SetActive(false);
-        }
+        // 获取材质
+        Material material = renderer.material;
+        // 获取Offset参数的值
+        Vector2 offset = material.GetTextureOffset("_MainTex");
+        // 计算新的Offset值
+        float offsetX = offset.x + speed;
+        float offsetY = offset.y + speed/100000f ;
+        Vector2 newOffset = new Vector2(offsetX, offsetY);
+
+        // 设置新的Offset值
+        material.SetTextureOffset("_MainTex", newOffset);
     }
 
     public void SetSpeed(float sp)

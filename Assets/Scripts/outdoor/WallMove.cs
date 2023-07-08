@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class WallMove : MonoBehaviour
 {
-    public GameObject leftWallPrefab;
-    public GameObject rightWallPrefab;
+    public GameObject[] PrefabBuilding;
     public Transform createPoint;
     public Transform parentLeft;
     public Transform parentRight;
@@ -18,13 +17,12 @@ public class WallMove : MonoBehaviour
     public float timerRight;
 
     //道路脚本列表
-    public Queue<RoadMoveBase> queueRoadMoveBase;
+    public RoadMoveBase roadMoveBase;
 
     public  float RunSpeed;
     private void Awake()
     {
         listWall = new List<WallMoveBase>();
-        queueRoadMoveBase = new Queue<RoadMoveBase>();
     }
     // Start is called before the first frame update
     void Start()
@@ -43,7 +41,7 @@ public class WallMove : MonoBehaviour
         if(timerLeft < 0)
         {
             timerLeft = Random.Range(0.5f,1);
-            GameObject leftWall = Instantiate(leftWallPrefab, createPoint.position+new Vector3(-6,0,0),Quaternion.Euler(0,60,0));
+            GameObject leftWall = Instantiate(PrefabBuilding[Random.Range(0,7)], createPoint.position+new Vector3(-6,0,0),Quaternion.Euler(0,40,0));
             leftWall.transform.SetParent(parentLeft);
             WallMoveBase wallMoveBaseLeft = leftWall.AddComponent<WallMoveBase>();
             listWall.Add(wallMoveBaseLeft);
@@ -53,7 +51,7 @@ public class WallMove : MonoBehaviour
         if(timerRight < 0)
         {
             timerRight = Random.Range(0.2f, 1);
-            GameObject rightWall = Instantiate(rightWallPrefab, createPoint.position + new Vector3(6, 0, 0), Quaternion.Euler(0, -60, 0));
+            GameObject rightWall = Instantiate(PrefabBuilding[Random.Range(0, 7)], createPoint.position + new Vector3(6, 0, 0), Quaternion.Euler(0, -40, 0));
             rightWall.transform.SetParent(parentRight);
             WallMoveBase wallMoveBaseRight = rightWall.AddComponent<WallMoveBase>();
             listWall.Add(wallMoveBaseRight);
@@ -74,10 +72,9 @@ public class WallMove : MonoBehaviour
         {
             item.SetSpeed(RunSpeed);
         }
-        foreach (RoadMoveBase item in queueRoadMoveBase)
-        {
-            item.SetSpeed(RunSpeed);
-        }
+        roadMoveBase.SetSpeed(RunSpeed);
+
+
     }
 
     public void DestroyObj(WallMoveBase wallMoveBase)

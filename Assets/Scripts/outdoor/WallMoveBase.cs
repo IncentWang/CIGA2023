@@ -12,7 +12,7 @@ public class WallMoveBase : MonoBehaviour
     void Start()
     {
         speed = 20f;
-        destroyTime = 8f;
+        destroyTime = 30f;
         wallMove = FindObjectOfType<WallMove>();
     }
 
