@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DefaultNamespace
@@ -30,6 +32,12 @@ namespace DefaultNamespace
         void Update()
         {
             UpdateSliderAndText();
+
+            //场景跳转延迟
+            if (isTurning)
+            {
+                TurnUpdate();
+            }
         }
 
         public void LevelChange(int newLevel)
@@ -59,11 +67,44 @@ namespace DefaultNamespace
 
             Target.text = "/ " + UpperLimit.ToString();
         }
-        
+
+        //场景跳转部分
         public void GoOut()
         {
-            
+            ShowLoading();
+            isTurning = true;
         }
+
+        
+        private void ShowLoading()
+        {
+            Instantiate(Resources.Load("Prefabs/Loading"));
+            StartCoroutine(loadScene(2));
+        }
+        AsyncOperation operation;
+        bool isTurning;
+        IEnumerator loadScene(int i)
+        {
+            operation = SceneManager.LoadSceneAsync(i);
+            //加载完场景不要自动跳转
+            //operation.allowSceneActivation 默认为true,意味自动跳转
+            operation.allowSceneActivation = false;
+            yield return operation;
+        }
+
+        float Turntimer = 0;
+        private void TurnUpdate()
+        {
+            //输出加载进度 0-0.9 最大为0.9
+            Turntimer += Time.deltaTime;
+            //如果到达5秒，再跳转
+            if (Turntimer > 2f)
+            {
+                operation.allowSceneActivation = true;
+            }
+        }
+        //场景跳转部分结束
+
 
         public void OpenAndCloseFeeling()
         {
