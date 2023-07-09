@@ -8,6 +8,9 @@ namespace DefaultNamespace
         public FishFeelingManager Manager;
         public ParticleSystem Love;
         public ParticleSystem Shit;
+        public AudioSource SFXSource;
+        public AudioClip TouchSFX;
+        
         Camera cam;
         private long[] normalPattern = new[] {200l, 200l};
         private long[] badPattern = new[] {50l, 100l};
@@ -40,6 +43,7 @@ namespace DefaultNamespace
                 Vibration.Cancel();
                 currentMode = 0;
                 Manager.ChangeTouching(false);
+                SFXSource.Stop();
                 return;
             }
 #else
@@ -49,6 +53,7 @@ namespace DefaultNamespace
                 Vibration.Cancel();
                 currentMode = 0;
                 Manager.ChangeTouching(false);
+                SFXSource.Stop();
                 return;
             }
 #endif
@@ -59,11 +64,16 @@ namespace DefaultNamespace
                 Manager.Changing = false;
                 Vibration.Cancel();
                 currentMode = 0;
+                SFXSource.Stop();
                 Manager.ChangeTouching(false);
                 return;
             }
 
             Manager.Changing = true;
+            if (!SFXSource.isPlaying)
+            {
+                SFXSource.Play();
+            }
             if (hit.collider.GetComponent<TouchObject>().GoodPart.Contains(hit.triangleIndex))
             {
                 Debug.Log("Hit Good Part!~");

@@ -21,6 +21,8 @@ namespace DefaultNamespace
         public Slider Slider;
         public float LowerLimit;
         public float UpperLimit;
+        public AudioSource SFXSource;
+        public AudioClip ButtonSFX;
 
         void Awake()
         {
@@ -72,6 +74,7 @@ namespace DefaultNamespace
         public void GoOut()
         {
             ShowLoading();
+            SFXSource.PlayOneShot(ButtonSFX);
             isTurning = true;
         }
 
@@ -109,6 +112,7 @@ namespace DefaultNamespace
         public void OpenAndCloseFeeling()
         {
             FeelingPanel.SetActive(!FeelingPanel.activeSelf);
+            SFXSource.PlayOneShot(ButtonSFX);
             Debug.Log("Open Or Close Panel!");
         }
 
