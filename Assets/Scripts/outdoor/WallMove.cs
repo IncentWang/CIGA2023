@@ -26,14 +26,18 @@ public class WallMove : MonoBehaviour
     //显示时间 路程
     public Text timeText;
     public Text sumText;
+
+    //声音
+    public AudioClip audioClip03;
+    private AudioSource[] audioSources; 
     private void Awake()
     {
         listWall = new List<WallMoveBase>();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-
         time = 1f;
         timerLeft = time;
         timerRight = time;
@@ -71,6 +75,8 @@ public class WallMove : MonoBehaviour
         //场景切换延迟
         TurnUpdate();
     }
+
+
     private bool isEnd;
     
     //结束判断
@@ -84,6 +90,12 @@ public class WallMove : MonoBehaviour
             Button btn = obj.GetComponentInChildren<Button>();
             btn.onClick.AddListener(ShowLoading);
             isEnd = true;
+            audioSources = FindObjectsOfType<AudioSource>();
+            foreach (AudioSource item in audioSources)
+            {
+                item.Stop();
+            }
+            audioSources[0].PlayOneShot(audioClip03);
             return;
         }
         if(roadLength >= 300f)

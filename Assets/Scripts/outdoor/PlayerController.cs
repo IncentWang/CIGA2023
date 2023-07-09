@@ -11,9 +11,16 @@ public class PlayerController : MonoBehaviour
     private FishFeelingManager fishFeelingManager;
     private float LoveLevel;
     private float LoveAddSpeed;
+    private AudioSource audioSource;
+    public AudioClip audioClip01;
+    public AudioClip audioClip02;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         wallMove = FindObjectOfType<WallMove>();
         body = GetComponent<Rigidbody>();
         fishFeelingManager = FindObjectOfType<FishFeelingManager>();
@@ -34,7 +41,18 @@ public class PlayerController : MonoBehaviour
         GroundCheck();
     }
 
-    
+    public void PlaySmallClip()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(audioClip01);
+    }
+    public void PlayBigClip()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(audioClip02);
+    }
+
+
     private void SetLoveSpeed()
     {
         if(LoveLevel >0 && LoveLevel <= 100)
@@ -94,6 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             Handheld.Vibrate();
             body.AddForce(Vector3.up *  350f);
+            PlayBigClip();
             Debug.Log("我跳了");
         }
     }
