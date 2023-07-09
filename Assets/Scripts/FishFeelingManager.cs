@@ -1,5 +1,8 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class FishFeelingManager : MonoBehaviour
 {
@@ -9,12 +12,59 @@ public class FishFeelingManager : MonoBehaviour
     public float Base; // 基础值
 
     public float Timer;
+    public float GoodTimer;
     public float CooldownTimer;
+    public float BaseIncreaseCooldown;
     public bool Changing;
+    public bool IsGood;
+    public int CurrentLevel;
+    public bool Bad;
+
+    private Animator _animator;
+    private TouchObject _object;
 
     public void ChangeFeeling()
     {
         Feeling += Coefficient * Base;
+        if (Feeling < UIManager.Instance.LowerLimit)
+        {
+            Feeling = UIManager.Instance.LowerLimit;
+        }
+
+        if (Feeling > UIManager.Instance.UpperLimit)
+        {
+            Feeling = UIManager.Instance.UpperLimit;
+        }
+    }
+
+    public void IncreaseBase()
+    {
+        Base += 0.34f;
+    }
+
+    public bool IsPlaying()
+    {
+        AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
+        return !info.IsName("New State");
+    }
+    
+
+    public void ResetBase()
+    {
+        Base = 1.0f;
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Bind Animator here
+        _animator = GameObject.Find("Fish").GetComponent<Animator>();
+        _object = GameObject.Find("Fish").GetComponentInChildren<TouchObject>();
+        UIManager.Instance.LevelChange(CurrentLevel);
     }
 
     private void Awake()
@@ -35,6 +85,10 @@ public class FishFeelingManager : MonoBehaviour
         if (Changing)
         {
             Timer += Time.deltaTime;
+            if (IsGood)
+            {
+                GoodTimer += Time.deltaTime;
+            }
         }
         else
         {
@@ -46,5 +100,48 @@ public class FishFeelingManager : MonoBehaviour
             Timer = 0.0f;
             ChangeFeeling();
         }
+
+        if (GoodTimer > BaseIncreaseCooldown)
+        {
+            GoodTimer = 0.0f;
+            IncreaseBase();
+            if (Base > 2.0f)
+            {
+                // 播放好评动画，翻身，重置
+                ResetBase();
+                if (Random.Range(0.0f, 1.0f) > 0.5f)
+                {
+                    _animator.Play("Base Layer.Haoping1");
+                    Debug.Log("Supposed to play animation");
+                }
+                else
+                {
+                    _animator.Play("Base Layer.Haoping2");
+                    Debug.Log("Supposed to play animation");
+                }
+                _object.ReRandomParts();
+            }
+        }
+        
+        if (Bad)
+        {
+            Base = -10.0f;
+            ChangeFeeling();
+            _animator.Play("Chaping");
+            _object.ReRandomParts();
+            ResetBase();
+            Bad = false;
+        }
+
+        if (Feeling >= UIManager.Instance.UpperLimit)
+        {
+            // Level up
+            if (CurrentLevel != 3)
+            {
+                CurrentLevel++;   
+                UIManager.Instance.LevelChange(CurrentLevel);
+            }
+        }
+
     }
 }

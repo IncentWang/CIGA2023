@@ -39,6 +39,15 @@ public class TouchObject : MonoBehaviour
         RandomParts(10, false);
     }
 
+    public void ReRandomParts()
+    {
+        GoodPart.Clear();
+        BadPart.Clear();
+        Done.Clear();
+        RandomParts(34, true);
+        RandomParts(10, false);
+    }
+
     void RandomParts(int count, bool good)
     {
         for (int i = 0; i < count; i++)

@@ -129,10 +129,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: ToIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3443222091186563822}
   m_Solo: 0
@@ -179,8 +176,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u54B8\u9C7C01_\u8868\u60C503"
-  m_Speed: 1
+  m_Name: Haoping1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3741813355434975001}
@@ -336,8 +333,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u54B8\u9C7C01_\u8868\u60C501"
-  m_Speed: 1
+  m_Name: Chaping
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7368094352103209453}
@@ -419,13 +416,13 @@ AnimatorStateMachine:
     m_Position: {x: 720, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1735671546205457076}
-    m_Position: {x: 560, y: 260, z: 0}
+    m_Position: {x: 550, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7219649368131115389}
-    m_Position: {x: 540, y: 380, z: 0}
+    m_Position: {x: 550, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3149567529562052351}
-    m_Position: {x: 770, y: 310, z: 0}
+    m_Position: {x: 720, y: 310, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
@@ -469,10 +466,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: ToIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3443222091186563822}
   m_Solo: 0
@@ -494,10 +488,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: ToIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3443222091186563822}
   m_Solo: 0
@@ -546,8 +537,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u54B8\u9C7C01_\u8868\u60C502"
-  m_Speed: 1
+  m_Name: Haoping2
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5264953874124700602}
