@@ -8,11 +8,18 @@ public class PlayerController : MonoBehaviour
     private WallMove wallMove;
     private bool isGound,inRoad;
     private Rigidbody body;
+    private FishFeelingManager fishFeelingManager;
+    private float LoveLevel;
+    private float LoveAddSpeed;
     // Start is called before the first frame update
     void Start()
     {
         wallMove = FindObjectOfType<WallMove>();
         body = GetComponent<Rigidbody>();
+        fishFeelingManager = FindObjectOfType<FishFeelingManager>();
+        LoveLevel = fishFeelingManager.Feeling;
+        SetLoveSpeed();
+        //LoveAddSpeed = 1.2f;
     }
 
     // Update is called once per frame
@@ -25,40 +32,39 @@ public class PlayerController : MonoBehaviour
         //TouchControl();
         MouseControl();
         GroundCheck();
-
-
     }
+
+    
+    private void SetLoveSpeed()
+    {
+        if(LoveLevel >0 && LoveLevel <= 100)
+        {
+            LoveAddSpeed = 1.2f;
+        }
+        else if (LoveLevel >100 && LoveLevel <= 300)
+        {
+            LoveAddSpeed = 1.5f;
+        }
+        else if (LoveLevel >300 && LoveLevel <= 500)
+        {
+            LoveAddSpeed = 2f;
+        }
+    }
+
     private void GroundCheck()
     {
         if(transform.position.y <= 0)
         {
-            wallMove.SetRunSpeed(10f);
+            wallMove.SetRunSpeed(10f * LoveAddSpeed);
             inRoad = true;
         }
         else if (transform.position.y > 0.5f)
         {
-            wallMove.SetRunSpeed(30f);
+            wallMove.SetRunSpeed(30f * LoveAddSpeed);
             inRoad = false;
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    //if (collision.gameObject.CompareTag("Road"))
-    //    //{
-    //        Debug.Log(collision.gameObject.name + " ***");
-    //        wallMove.SetRunSpeed(10f);
-    //        inRoad = true;
-    //    //}
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    //if (collision.gameObject.CompareTag("Road"))
-    //    //{
-    //        inRoad = false;
-    //    //}
-    //}
     public void SetIsGround()
     {
         isGound = true;

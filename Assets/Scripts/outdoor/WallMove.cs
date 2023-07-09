@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class WallMove : MonoBehaviour
 {
@@ -20,6 +22,10 @@ public class WallMove : MonoBehaviour
     public RoadMoveBase roadMoveBase;
 
     public  float RunSpeed;
+
+    //显示时间 路程
+    public Text timeText;
+    public Text sumText;
     private void Awake()
     {
         listWall = new List<WallMoveBase>();
@@ -58,6 +64,83 @@ public class WallMove : MonoBehaviour
         }
         //更新道路与建筑速度
         UpdateSpeed();
+        //更新UI
+        UpdateUI();
+        //结束判断
+        EndCheck();
+        //场景切换延迟
+        TurnUpdate();
+    }
+    private bool isEnd;
+    
+    //结束判断
+    private void EndCheck()
+    {
+        if (isEnd) return;
+        if (allTime <= 0)
+        {
+            Handheld.Vibrate();
+            GameObject obj= Instantiate(Resources.Load("Prefabs/Fail")) as GameObject;
+            Button btn = obj.GetComponentInChildren<Button>();
+            btn.onClick.AddListener(ShowLoading);
+            isEnd = true;
+            return;
+        }
+        if(roadLength >= 300f)
+        {
+            Handheld.Vibrate();
+            isEnd = true;
+            ShowLoading();
+        }
+    }
+
+    public  void ShowLoading()
+    {
+        Instantiate(Resources.Load("Prefabs/Loading")) ;
+
+        StartCoroutine(loadScene(1));
+    }
+    AsyncOperation operation;
+
+    IEnumerator loadScene(int i)
+    {
+        operation = SceneManager.LoadSceneAsync(i);
+        //加载完场景不要自动跳转
+        //operation.allowSceneActivation 默认为true,意味自动跳转
+        operation.allowSceneActivation = false;
+        isLoading = true;
+        yield return operation;
+    }
+
+    float Turntimer = 0f;
+    bool isLoading;
+    // Update is called once per frame
+    void TurnUpdate()
+    {
+        if (!isLoading) return;
+        //输出加载进度 0-0.9 最大为0.9
+        Turntimer += Time.deltaTime;
+        //如果到达5秒，再跳转
+        if (Turntimer > 2f)
+        {
+            operation.allowSceneActivation = true;
+        }
+    }
+
+
+
+
+    //总倒计时
+    private float allTime = 30;
+    //总路程
+    private float roadLength;
+
+    private void UpdateUI()
+    {
+        allTime -= Time.deltaTime;
+        roadLength = roadLength + RunSpeed/1000f; 
+        timeText.text = "倒计时：" + (int)allTime;
+        sumText.text = "路程：" + (int)roadLength;
     }
 
     public void SetRunSpeed(float sp)
