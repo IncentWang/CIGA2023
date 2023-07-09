@@ -38,6 +38,7 @@ namespace DefaultNamespace
                 Manager.Changing = false;
                 Vibration.Cancel();
                 currentMode = 0;
+                Manager.ChangeTouching(false);
                 return;
             }
 #else
@@ -46,6 +47,7 @@ namespace DefaultNamespace
                 Manager.Changing = false;
                 Vibration.Cancel();
                 currentMode = 0;
+                Manager.ChangeTouching(false);
                 return;
             }
 #endif
@@ -56,6 +58,7 @@ namespace DefaultNamespace
                 Manager.Changing = false;
                 Vibration.Cancel();
                 currentMode = 0;
+                Manager.ChangeTouching(false);
                 return;
             }
 
@@ -70,6 +73,7 @@ namespace DefaultNamespace
                     Vibration.Vibrate(10000);
                     Love.Play();
                     Shit.Stop();
+                    Manager.ChangeTouching(true);
                     currentMode = 1;
                 }
                 return;
@@ -86,6 +90,7 @@ namespace DefaultNamespace
                     Shit.Play();
                     _shitPlay = StartCoroutine(StopShit()); 
                     Love.Stop();
+                    Manager.ChangeTouching(true);
                     currentMode = 3;
                 }
                 return;
@@ -98,6 +103,7 @@ namespace DefaultNamespace
             {
                 Vibration.Cancel();
                 Vibration.Vibrate(normalPattern, repeat: 0);
+                Manager.ChangeTouching(true);
                 currentMode = 2;
                 Love.Stop();
             }

@@ -19,9 +19,12 @@ public class FishFeelingManager : MonoBehaviour
     public bool IsGood;
     public int CurrentLevel;
     public bool Bad;
+    public ParticleSystem Love;
+    public ParticleSystem Shit;
 
     private Animator _animator;
     private TouchObject _object;
+
 
     public void ChangeFeeling()
     {
@@ -45,13 +48,18 @@ public class FishFeelingManager : MonoBehaviour
     public bool IsPlaying()
     {
         AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
-        return !info.IsName("New State");
+        return !info.IsName("New State") && !info.IsName("Normal");
     }
-    
+
 
     public void ResetBase()
     {
         Base = 1.0f;
+    }
+
+    public void ChangeTouching(bool touching)
+    {
+        _animator.SetBool("Touching", touching);
     }
 
     void OnEnable()
@@ -62,9 +70,14 @@ public class FishFeelingManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Bind Animator here
-        _animator = GameObject.Find("Fish").GetComponent<Animator>();
-        _object = GameObject.Find("Fish").GetComponentInChildren<TouchObject>();
-        UIManager.Instance.LevelChange(CurrentLevel);
+        if (scene.buildIndex == 1)
+        {
+            _animator = GameObject.Find("Fish").GetComponent<Animator>();
+            _object = GameObject.Find("Fish").GetComponentInChildren<TouchObject>();
+            Love = GameObject.Find("Heart").GetComponent<ParticleSystem>();
+            Shit = GameObject.Find("Shit").GetComponent<ParticleSystem>();
+            UIManager.Instance.LevelChange(CurrentLevel);
+        }
     }
 
     private void Awake()
@@ -112,22 +125,27 @@ public class FishFeelingManager : MonoBehaviour
                 if (Random.Range(0.0f, 1.0f) > 0.5f)
                 {
                     _animator.Play("Base Layer.Haoping1");
+                    ChangeTouching(false);
                     Debug.Log("Supposed to play animation");
                 }
                 else
                 {
                     _animator.Play("Base Layer.Haoping2");
+                    ChangeTouching(false);
                     Debug.Log("Supposed to play animation");
                 }
+
+                Love.Stop();
                 _object.ReRandomParts();
             }
         }
-        
+
         if (Bad)
         {
             Base = -10.0f;
             ChangeFeeling();
             _animator.Play("Chaping");
+            ChangeTouching(false);
             _object.ReRandomParts();
             ResetBase();
             Bad = false;
@@ -138,10 +156,9 @@ public class FishFeelingManager : MonoBehaviour
             // Level up
             if (CurrentLevel != 3)
             {
-                CurrentLevel++;   
+                CurrentLevel++;
                 UIManager.Instance.LevelChange(CurrentLevel);
             }
         }
-
     }
 }
