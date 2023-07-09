@@ -71,20 +71,20 @@ public class PlayerController : MonoBehaviour
     }
     private void MouseControl()
     {
-        if (Input.GetMouseButton(0))
-        {
-            //if(Input.mousePosition.x <Screen.width/ 2)
-            //{
-            //    //向左移动
-            //    transform.Translate(Vector3.left * Time.deltaTime);
-            //}
-            //else
-            //{
-            //    // 向右移动
-            //    transform.Translate(Vector3.right * Time.deltaTime);
-            //}
-        }
-        if (Input.GetMouseButtonDown(1) && isGound && inRoad)
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (Input.mousePosition.x < Screen.width / 2)
+        //    {
+        //        //向左移动
+        //        transform.Translate(Vector3.left * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        // 向右移动
+        //        transform.Translate(Vector3.right * Time.deltaTime);
+        //    }
+        //}
+        if (Input.GetMouseButtonDown(0) && isGound && inRoad)
         {
             Handheld.Vibrate();
             body.AddForce(Vector3.up *  350f);
