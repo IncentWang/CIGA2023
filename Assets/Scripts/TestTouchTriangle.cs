@@ -19,6 +19,7 @@ namespace DefaultNamespace
             cam = GetComponent<Camera>();
             Love.Stop();
             Shit.Stop();
+            Manager = FishFeelingManager.Instance;
         }
 
         IEnumerator StopShit()

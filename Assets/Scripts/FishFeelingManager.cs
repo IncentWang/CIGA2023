@@ -22,7 +22,7 @@ public class FishFeelingManager : MonoBehaviour
     public ParticleSystem Love;
     public ParticleSystem Shit;
 
-    private Animator _animator;
+    [SerializeField]private Animator _animator;
     private TouchObject _object;
 
 
@@ -42,7 +42,7 @@ public class FishFeelingManager : MonoBehaviour
 
     public void IncreaseBase()
     {
-        Base += 0.34f;
+        Base += 0.67f;
     }
 
     public bool IsPlaying()
@@ -59,12 +59,22 @@ public class FishFeelingManager : MonoBehaviour
 
     public void ChangeTouching(bool touching)
     {
-        _animator.SetBool("Touching", touching);
+        if (_animator != null)
+            _animator.SetBool("Touching", touching);
     }
 
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (PlayerPrefs.HasKey("Feeling"))
+        {
+            Feeling = PlayerPrefs.GetFloat("Feeling");
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("Feeling", Feeling);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -118,7 +128,7 @@ public class FishFeelingManager : MonoBehaviour
         {
             GoodTimer = 0.0f;
             IncreaseBase();
-            if (Base > 2.0f)
+            if (Base > 3.0f)
             {
                 // 播放好评动画，翻身，重置
                 ResetBase();
@@ -142,7 +152,7 @@ public class FishFeelingManager : MonoBehaviour
 
         if (Bad)
         {
-            Base = -10.0f;
+            Base = -5.0f;
             ChangeFeeling();
             _animator.Play("Chaping");
             ChangeTouching(false);
