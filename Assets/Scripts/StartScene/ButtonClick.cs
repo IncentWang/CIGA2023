@@ -41,16 +41,17 @@ public class ButtonClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
         //加载完场景不要自动跳转
         //operation.allowSceneActivation 默认为true,意味自动跳转
         operation.allowSceneActivation = false;
+        isEnd = true;
         yield return operation;
     }
 
     float timer = 0;
-
+    bool isEnd;
     // Update is called once per frame
     void Update()
     {
+        if (!isEnd) return;
         //输出加载进度 0-0.9 最大为0.9
-        Debug.Log(operation.progress);
         timer += Time.deltaTime;
         //如果到达5秒，再跳转
         if (timer > 2f)
