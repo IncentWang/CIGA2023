@@ -10,6 +10,7 @@ namespace DefaultNamespace
         public ParticleSystem Shit;
         public AudioSource SFXSource;
         public AudioClip TouchSFX;
+        public GameObject FeelingPanel;
         
         Camera cam;
         private long[] normalPattern = new[] {200l, 200l};
@@ -35,6 +36,8 @@ namespace DefaultNamespace
         {
             RaycastHit hit = new RaycastHit();
             if (FishFeelingManager.Instance.IsPlaying())
+                return;
+            if (FeelingPanel.activeSelf)
                 return;
 #if UNITY_ANDROID && !UNITY_EDITOR           
             if (Input.touchCount > 0 && !Physics.Raycast(cam.ScreenPointToRay(Input.GetTouch(0).position), out hit))

@@ -5,27 +5,33 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ButtonClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler
+public class ButtonClick : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private  Animator animator;
+    private Animator animator;
+    private int counter = 0;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        animator.SetTrigger("click");
-        Invoke("ShowLoading", 1f);
+        if (counter == 0)
+        {
+            animator.SetTrigger("click");
+            Invoke("ShowLoading", 1f);
+        }
+
+        counter++;
     }
 
     private void ShowLoading()
@@ -33,6 +39,7 @@ public class ButtonClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
         Instantiate(Resources.Load("Prefabs/Loading"));
         StartCoroutine(loadScene(1));
     }
+
     AsyncOperation operation;
 
     IEnumerator loadScene(int i)
@@ -46,7 +53,9 @@ public class ButtonClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
     }
 
     float timer = 0;
+
     bool isEnd;
+
     // Update is called once per frame
     void Update()
     {
@@ -59,5 +68,4 @@ public class ButtonClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
             operation.allowSceneActivation = true;
         }
     }
-
 }

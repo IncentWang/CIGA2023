@@ -635,7 +635,7 @@ MonoBehaviour:
   Mask: {fileID: 1999904617}
   Unlocked: 0
   SFXSource: {fileID: 2000793582}
-  ButtonSFX: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  ButtonSFX: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
 --- !u!1 &422783976
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXSource: {fileID: 2000793582}
-  ButtonSFX: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  ButtonSFX: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
 --- !u!1 &604709918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2351962788575664929, guid: b3df700daadc93847b83f534f15f51a0,
@@ -1451,7 +1451,8 @@ MonoBehaviour:
   Love: {fileID: 1773755503}
   Shit: {fileID: 1941466578}
   SFXSource: {fileID: 1944968665}
-  TouchSFX: {fileID: 8300000, guid: 7023c136315f8d146bb3636eabe1f88c, type: 3}
+  TouchSFX: {fileID: 8300000, guid: 97033399464a9f242b231f32eeb39448, type: 3}
+  FeelingPanel: {fileID: 2027038290}
 --- !u!1 &888189817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,7 +1810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXSource: {fileID: 2000793582}
-  ButtonSFX: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  ButtonSFX: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
 --- !u!1 &1064153851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,7 +2304,7 @@ MonoBehaviour:
   Mask: {fileID: 786482376}
   Unlocked: 0
   SFXSource: {fileID: 2000793582}
-  ButtonSFX: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  ButtonSFX: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
 --- !u!1 &1277124008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,7 +2630,7 @@ MonoBehaviour:
   LowerLimit: 0
   UpperLimit: 0
   SFXSource: {fileID: 2000793582}
-  ButtonSFX: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  ButtonSFX: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
 --- !u!1 &1465044500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2351962788575664929, guid: 0da9b5d05dfc3674c83a4109373d4b71,
@@ -4885,8 +4886,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
-    mode: 1
+    enabled: 0
+    mode: 0
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -4996,13 +4997,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 1
+    tilesX: 3
     tilesY: 1
-    animationType: 0
+    animationType: 1
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 0
     sprites:
     - sprite: {fileID: 21300000, guid: 058e32e7b54aff340aafc5be463fe09b, type: 3}
     - sprite: {fileID: 21300000, guid: 6315d9d2290bcee4b9339fd90bbe7873, type: 3}
@@ -8305,7 +8306,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 971adb5a99c881746a89afe1d020696c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 105f88849bad1074eb44d144beede5ae, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13325,7 +13326,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7023c136315f8d146bb3636eabe1f88c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 97033399464a9f242b231f32eeb39448, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -13527,7 +13528,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 55f38a73344f63c4e9b610b220b6b446, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 23ea3ada8dcb613418f43b03a250a38c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

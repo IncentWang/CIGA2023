@@ -72,9 +72,16 @@ public class FishFeelingManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        PlayerPrefs.SetFloat("Feeling", Feeling);
+        Debug.Log("Pause Save Done");
+    }
+
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetFloat("Feeling", Feeling);
+        Debug.Log("Quitting...");
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
